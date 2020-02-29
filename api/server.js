@@ -1,6 +1,6 @@
 const express = require('express');
 
-const postsRouter = require('../posts/posts-router.js');
+const recipeRouter = require('../recipes/recipe-router.js');
 const userRouter = require('../users/users-router.js');
 
 const server = express();
@@ -12,7 +12,7 @@ server.get('/', (req, res) => {
   res.send(`server running for BW project!`);
 });
 
-server.use('/api/recipes', postsRouter);
+server.use('/api/recipes', recipeRouter);
 server.use('/api/users', userRouter);
 
 // custom middleware for logger

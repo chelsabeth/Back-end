@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => { 
-    console.log('Hello from posts router!')
+    res.send('Hello from recipe router!')
 });
 
 module.exports = router;
