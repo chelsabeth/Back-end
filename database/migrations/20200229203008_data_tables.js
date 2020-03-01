@@ -26,6 +26,14 @@ exports.up = function(knex) {
       tbl.string('category', 30)
         .notNullable()
         .index();
+      // foreign key that references the id in the users table...this is a one to many 
+      tbl.integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
   })
 };
 
