@@ -5,7 +5,6 @@ const helmet = require('helmet');
 const authenticate = require('../auth/auth-middleware.js'); // will put on recipeRouter
 const authRouter = require('../auth/auth-router.js');
 const recipeRouter = require('../recipes/recipe-router.js');
-
 const server = express();
 
 server.use(logger);

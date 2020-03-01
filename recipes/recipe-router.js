@@ -1,9 +1,9 @@
 const express = require('express');
-// const authenticate = require('../auth/auth-middleware.js'); 
 const router = express.Router();
 const db = require('../recipes/recipe-model.js')
 
-const Recipes = require('./recipe-model');
+const Users = require('../users/users-model.js')
+const Recipes = require('./recipe-model.js');
 
 // GET all recipes
 router.get('/', (req, res) => {
@@ -18,20 +18,19 @@ router.get('/', (req, res) => {
 });
 
 
-// POST new recipe
-router.post('/', validatePost, (req, res) => {
-    const newRecipe = req.body;
+// POST new recipe for a user
+router.post('/:id/recipes', validatePost, (req, res) => {
+    const id = req.params.id;
+    req.body.user_id = id;
+    const recipeData = req.body;
 
-    db.insert(newRecipe).then(brandNewRecipe => {
-        res
-            .status(200)
-            .json(brandNewRecipe)
+    Recipes.insert(recipeData)
+     .then(brandNewRecipe => {
+        res.status(200).json({ brandNewRecipe });
+    })
             .catch(err => {
                 console.log(err);
-                res.status(500).json({
-                    error: 'There was an error while saving to the database'
-                });
-            });
+                res.status(500).json({ error: 'There was an error while saving to the database' });
     });
 });
 
@@ -59,6 +58,20 @@ router.get("/:id", validateRecipeId, (req, res) => {
   });
 
 
+  // GET recipes for a specific user
+router.get('/:id/recipes', validateUserId, (req, res) => {
+    const id = req.params.id; 
+
+    Users.getUsersRecipes(id)
+    .then(recipes => {
+        res.status(200).json(recipes);
+    })
+    .catch(err => {
+        res.status(500).json({ errMessage: 'failed to get recipes' })
+    })
+})
+
+
 // CUSTOM MIDDLEWARE
 function validatePost(req, res, next) {
     const data = req.body;
@@ -71,7 +84,9 @@ function validatePost(req, res, next) {
     } else if (!data.directions) {
         res.status(400).json({ error: 'missing required directions' })
     } else if (!data.category) {
-        res.status(400).json({ error: 'missing required category' })
+        res.status(400).json({ error: 'missing required category' }) 
+    } else if (!data.user_id) {
+        res.status(400).json({ error: 'missing required user_id' })
     } else {
         next();
     }
@@ -87,5 +102,21 @@ function validateRecipeId(req, res, next) {
       });
     }
   }
+
+  function validateUserId(req, res, next) {
+    const id = req.params.id;
+      Users.getUsersById(id) 
+      .then(user => {
+          if (user) {
+              req.user = user;
+              next();
+          } else {
+              res.status(404).json({ message: 'invalid user id' })
+          }
+      })
+      .catch(error => {
+            res.status(500).json({ error: 'The user information could not be retrieved.' })
+      })   
+}
 
 module.exports = router;

@@ -3,7 +3,7 @@ const db = require('../database/dbConfig.js');
 module.exports = {
     getAllRecipes,
     getById,
-    insert
+    insert,
 }
 
 function getAllRecipes() {
@@ -21,8 +21,12 @@ function getById(id) {
 
 function insert(recipe) {
     return db('recipes')
-        .insert(recipe)
+        .insert(recipe, 'id')
         .then(ids => {
-            return getById(ids[0]);
+            const [id] = ids;
+
+            return db('recipes')
+                .where({ id })
+                .first();
         });
 }
