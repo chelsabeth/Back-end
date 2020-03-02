@@ -51,9 +51,7 @@ router.get("/:id", validateRecipeId, (req, res) => {
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({
-          error: "The recipe information could not be retrieved"
-        });
+        res.status(500).json({ error: 'The recipe information could not be retrieved' });
       });
   });
 
@@ -67,12 +65,12 @@ router.get('/:id/recipes', validateUserId, (req, res) => {
         res.status(200).json(recipes);
     })
     .catch(err => {
-        res.status(500).json({ errMessage: `failed to get recipes ${err}`})
+        res.status(500).json({ errMessage: 'Failed to get recipes' });
     })
 });
 
 
-// PUT recipe for a specific user
+// PUT a specific recipe
 router.put('/:id', validateRecipeId, (req, res) => {
     const id = req.params.id;
     const recipeData = req.body;
@@ -83,9 +81,24 @@ router.put('/:id', validateRecipeId, (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: 'The recipe could not be modified' })
+        res.status(500).json({ error: 'The recipe could not be modified' });
     })
 });
+
+
+// DELETE a specific recipe
+router.delete('/:id', (req, res) => {
+    const id = req.params.id;
+
+    Recipes.remove(id)
+    .then(deleted => {
+        if (deleted) {
+            res.status(200).json({deleted});
+        } else {
+            res.status(404).json({ error: 'Failed to delete post' });
+        }
+    })
+})
 
 
 // CUSTOM MIDDLEWARE
