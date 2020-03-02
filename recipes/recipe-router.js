@@ -67,7 +67,7 @@ router.get('/:id/recipes', validateUserId, (req, res) => {
         res.status(200).json(recipes);
     })
     .catch(err => {
-        res.status(500).json({ errMessage: 'failed to get recipes' })
+        res.status(500).json({ errMessage: `failed to get recipes ${err}`})
     })
 })
 
