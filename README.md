@@ -1,7 +1,7 @@
 # Back-end
 secret family recipes back end! Good luck all! 
 
-# Documentation 
+# Documentation:
 
 # Base URL for Deployed API
 https://secretfamrecipes.herokuapp.com/
