@@ -32,7 +32,8 @@ router.post('/login', (req, res) => {
         const token = signToken(user)
 
         res.status(200).json({
-          message: token
+          message: `${token}`,
+          user_id: `${user.id}`
         });
       } else {
           res.status(401).json({ you: 'shall not pass' });
