@@ -9,11 +9,12 @@ describe('auth-router', function() {
         })
     })
 
+    // test the POST for register
     describe('POST /register', function() {
         it('should return new user with text/html', function() {
            return request(server).post('/api/auth/register')
            .then(res => {
-               expect(res.type).toMatch("text/html") // tests if it's a html or text string
+               expect(res.type).toMatch("text/html")
            }) 
         })
     })
@@ -28,6 +29,7 @@ describe('auth-router', function() {
         })
     })
 
+    // test the POST for login
     describe('POST /login', function() {
         it('should return JSON', function() {
             return request(server).post('/api/auth/login')
