@@ -11,11 +11,11 @@ secret family recipes back end! Good luck all!
 | ------- | --- | ----------- |
 | POST | api/auth/register | register as a new user |
 | POST | api/auth/login | login as an existing user |
-| POST | api/recipes/:id/recipes | add post for logged in user |
-| GET | api/recipes/:id/recipes | get posts for logged in user |
+| POST | api/recipes/:id/user | add post for logged in user |
+| GET | api/recipes/:id/user | get posts for logged in user |
 | GET | api/recipes/:id | get specific recipe for user |
 | PUT | api/recipes/:id | edit specific recipe for user |
-| DELETE | api/chefs/posts/:id | delete specific recipe for user |
+| DELETE | api/recipes/:id | delete specific recipe for user |
 
 
 # Table Requirements
