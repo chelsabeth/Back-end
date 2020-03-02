@@ -23,7 +23,7 @@ https://secretfamrecipes.herokuapp.com/
 # Users
 | Name | Type | Required | Unique | Notes |
 | ---- | ---- | -------- | ------ | ----- |
-| id | integer | yes | yes | users id |
+| id | integer | yes | yes | users id (auto generated) |
 | name | string | no | no | users name |
 | email | string | no | yes | users email |
 | username | string | yes | yes | users username (max 50 char) |
@@ -32,7 +32,7 @@ https://secretfamrecipes.herokuapp.com/
 # Recipes
 | Name | Type | Required | Unique | Notes |
 | ---- | ---- | -------- | ------ | ----- |
-| id | integer | yes | yes | recipes id |
+| id | integer | yes | yes | recipes id (auto generated) |
 | title | string | yes | no | recipes title (max 100 char) |
 | creator | string | no | no | creator of recipe |
 | ingredients | string | yes | no | ingredients for the recipe (max 1000 char) |
