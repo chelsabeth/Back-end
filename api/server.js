@@ -5,8 +5,6 @@ const helmet = require('helmet');
 const authenticate = require('../auth/auth-middleware.js'); // will put on recipeRouter
 const authRouter = require('../auth/auth-router.js');
 const recipeRouter = require('../recipes/recipe-router.js');
-const userRouter = require('../users/users-router.js');
-
 const server = express();
 
 server.use(logger);
@@ -20,7 +18,6 @@ server.get('/', (req, res) => {
 
 server.use('/api/auth', authRouter);
 server.use('/api/recipes', authenticate, recipeRouter);
-server.use('/api/users', userRouter);
 
 // custom middleware for logger
 function logger(req, res, next) {
