@@ -6,20 +6,20 @@ const Users = require('../users/users-model.js')
 const Recipes = require('./recipe-model.js');
 
 // GET all recipes
-router.get('/', (req, res) => {
-    Recipes.getAllRecipes()
-        .then(recipes => {
-            res.status(200).json(recipes);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({ errMessage: 'Failed to get recipes, sorry!' })
-        })
-});
+// router.get('/', (req, res) => {
+//     Recipes.getAllRecipes()
+//         .then(recipes => {
+//             res.status(200).json(recipes);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             res.status(500).json({ errMessage: 'Failed to get recipes, sorry!' })
+//         })
+// });
 
 
 // POST new recipe for a user
-router.post('/:id/recipes', validateRecipe, (req, res) => {
+router.post('/:id/user', validateRecipe, (req, res) => {
     const id = req.params.id;
     req.body.user_id = id;
     const recipeData = req.body;
@@ -57,7 +57,7 @@ router.get("/:id", validateRecipeId, (req, res) => {
 
 
   // GET recipes for a specific user
-router.get('/:id/recipes', validateUserId, (req, res) => {
+router.get('/:id/user', validateUserId, (req, res) => {
     const id = req.params.id; 
 
     Users.getUsersRecipes(id)
