@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 
 // POST new recipe for a user
-router.post('/:id/recipes', validatePost, (req, res) => {
+router.post('/:id/recipes', validateRecipe, (req, res) => {
     const id = req.params.id;
     req.body.user_id = id;
     const recipeData = req.body;
@@ -69,11 +69,27 @@ router.get('/:id/recipes', validateUserId, (req, res) => {
     .catch(err => {
         res.status(500).json({ errMessage: `failed to get recipes ${err}`})
     })
-})
+});
+
+
+// PUT recipe for a specific user
+router.put('/:id', validateRecipeId, (req, res) => {
+    const id = req.params.id;
+    const recipeData = req.body;
+
+    Recipes.update(id, recipeData)
+    .then(recipe => {
+        res.status(200).json(recipe);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: 'The recipe could not be modified' })
+    })
+});
 
 
 // CUSTOM MIDDLEWARE
-function validatePost(req, res, next) {
+function validateRecipe(req, res, next) {
     const data = req.body;
     if (!data) {
         res.status(400).json({ error: 'missing required fields' })
